@@ -16,7 +16,7 @@ $studentPhoto = isset($_SESSION['student_photo']) ? $_SESSION['student_photo'] :
 <!-- Student Dashboard Navbar/Profile -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Brissbella LMS</a>
+        <a class="navbar-brand" href="#">Student Dashboard</a>
         <div class="d-flex align-items-center">
             <div class="dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
