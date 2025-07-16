@@ -3,7 +3,7 @@ A web-based Learning Management System for Brissbella Academy to manage online c
 
 ## 📚 Project Overview
 
-Brissbella LMS is an interactive platform designed to support the educational services of Brissbella Academy. The system enables efficient handling of:
+Brissbella Learning managemnet system is an interactive platform designed to support the educational services of Brissbella Academy. The system enables efficient handling of:
 
 - Student registrations and signups
 - Course creation and content uploads
