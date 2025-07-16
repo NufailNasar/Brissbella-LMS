@@ -1,8 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include('header.php'); ?>
-<body>
 
+<?php
+// START PHP BLOCK FOR FORM HANDLING
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $host = "localhost";
+    $db = "brissbella_lms";
+    $user = "root";
+    $pass = "";
+
+    // Connect to DB
+    $conn = new mysqli($host, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Receive form data
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    // Check if email exists
+    $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $check->bind_param("s", $email);
+    $check->execute();
+    $check->store_result();
+
+    if ($check->num_rows > 0) {
+        echo "<script>alert('Email already registered. Please use another.');</script>";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $fullname, $email, $password);
+
+        if ($stmt->execute()) {
+            session_start();
+            $_SESSION['user'] = $email;
+            echo "<script>window.location.href='signin.php';</script>";
+            exit();
+        } else {
+            echo "<script>alert('Error saving your data.');</script>";
+        }
+    }
+
+    $conn->close();
+}
+?>
+
+<body>
 <!-- Signup Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -12,7 +57,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <form action="signup.php" method="post">
+                <form action="" method="post">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name" required>
                         <label for="fullname">Full Name</label>
