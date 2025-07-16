@@ -1,8 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include('header.php'); ?>
-<body>
 
+<?php
+session_start();
+
+// Run this block only after form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $host = "localhost";
+    $db = "brissbella_lms";  // Change if your DB name is different
+    $user = "root";
+    $pass = "";
+
+    // Connect to database
+    $conn = new mysqli($host, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Collect form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepare and execute query
+    $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows == 1) {
+        $stmt->bind_result($hashed_password);
+        $stmt->fetch();
+
+        // Verify password
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user'] = $email;
+            echo "<script>window.location.href = 'Studenthomepage.php';</script>";
+            exit();
+        } else {
+            echo "<script>alert('Incorrect password.');</script>";
+        }
+    } else {
+        echo "<script>alert('No account found with that email.');</script>";
+    }
+
+    $conn->close();
+}
+?>
+
+<body>
 <!-- Signin Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -12,7 +58,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <form action="signin.php" method="post">
+                <form action="" method="post">
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                         <label for="email">Email address</label>
