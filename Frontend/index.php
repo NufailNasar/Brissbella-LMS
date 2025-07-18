@@ -3,7 +3,7 @@
 
 <?php
 include('header.php');
-include('connection.php'); // Ensure DB connection is established
+include('connection.php');
 ?>
 
 
