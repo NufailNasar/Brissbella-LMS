@@ -8,7 +8,7 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $host = "localhost";
-    $db = "brissbella_lms";  // Change if your DB name is different
+    $db = "brissbella_lms";
     $user = "root";
     $pass = "";
 
