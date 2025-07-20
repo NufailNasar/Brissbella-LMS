@@ -5,14 +5,13 @@
 <?php
 session_start();
 
-// Run this block only after form submission
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $host = "localhost";
-    $db = "brissbella_lms";  // Change if your DB name is different
+    $db = "brissbella_lms";
     $user = "root";
     $pass = "";
 
-    // Connect to database
     $conn = new mysqli($host, $user, $pass, $db);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
