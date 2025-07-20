@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role = $_POST['role'];
 
     // Check if email already exists
     $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
@@ -20,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($check->num_rows > 0) {
         echo "<script>alert('Email already registered. Please use another.');</script>";
     } else {
-        $stmt = $conn->prepare("INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $fullname, $email, $password);
+        $stmt = $conn->prepare("INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $fullname, $email, $password, $role);
 
         if ($stmt->execute()) {
             $_SESSION['user'] = $email;
@@ -57,6 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         <label for="password">Password</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <select class="form-select" name="role" id="role" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <label for="role">Select Role</label>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary py-3">Sign Up</button>

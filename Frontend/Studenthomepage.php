@@ -4,7 +4,7 @@
 <?php
 session_start();
 include('header.php');
-include('connection.php');
+include('db_connect.php');
 
 // Dummy user data for example (replace with DB fetch using session data)
 $studentName = "Ashan Lakpradeepa";
