@@ -4,37 +4,35 @@
 
 <?php
 session_start();
-
+include('db_connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $host = "localhost";
-    $db = "brissbella_lms";
-    $user = "root";
-    $pass = "";
-
-    $conn = new mysqli($host, $user, $pass, $db);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Collect form data
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Prepare and execute query
-    $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows == 1) {
-        $stmt->bind_result($hashed_password);
+        $stmt->bind_result($hashed_password, $role);
         $stmt->fetch();
 
-        // Verify password
         if (password_verify($password, $hashed_password)) {
             $_SESSION['user'] = $email;
-            echo "<script>window.location.href = 'Studenthomepage.php';</script>";
+            $_SESSION['role'] = $role;
+
+            // Redirect based on role
+            if ($role == 'student') {
+                echo "<script>window.location.href='Studenthomepage.php';</script>";
+            } elseif ($role == 'instructor') {
+                echo "<script>window.location.href='Instructorhomepage.php';</script>";
+            } elseif ($role == 'admin') {
+                echo "<script>window.location.href='Adminhomepage.php';</script>";
+            } else {
+                echo "<script>alert('Unknown role.');</script>";
+            }
             exit();
         } else {
             echo "<script>alert('Incorrect password.');</script>";
