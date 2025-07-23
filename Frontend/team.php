@@ -3,7 +3,7 @@
 
 <?php
 include('header.php');
-include('connection.php');
+include('db_connect.php');
 ?>
 
 <!-- Team Start -->
