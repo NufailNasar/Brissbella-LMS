@@ -1,5 +1,6 @@
 body {
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', sans-serif;
 }
 .bg-pink, .btn-pink {
     background-color: #e91e63 !important;
@@ -8,6 +9,43 @@ body {
 .btn-pink:hover {
     background-color: #d81b60 !important;
 }
-
-
-
+.sidebar {
+    min-width: 250px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar .nav-link {
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.sidebar .nav-link:hover {
+    background-color: #d81b60;
+}
+.table th, .table td {
+    vertical-align: middle;
+    font-size: 0.95rem;
+}
+.card {
+    border-radius: 0.5rem;
+}
+footer.footer {
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+    color: #555;
+}
+.section-title h2 {
+    font-weight: bold;
+    color: #e91e63;
+    border-color: #e91e63;
+}
+.card-header {
+    font-weight: 600;
+    font-size: 1rem;
+}
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
