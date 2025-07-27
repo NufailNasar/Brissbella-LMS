@@ -37,7 +37,7 @@ $(document).ready(function () {
             let formData = new FormData(this);
 
             $.ajax({
-                url: '/courses/save',
+                url: '/lectures/save',
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -48,7 +48,7 @@ $(document).ready(function () {
                     ),
                 },
                 success: function (response) {
-                    toastr.success("Course saved successfully!");
+                    toastr.success("Lecture saved successfully!");
                     location.reload()
                 },
                 error: function (xhr) {

@@ -22,8 +22,8 @@
             <ul class="nav flex-column">
                 <li class="nav-item"><a href="/dashboard" class="nav-link text-white">🏠 Dashboard</a></li>
                 <li class="nav-item"><a href="/courses" class="nav-link text-white">📚 Courses</a></li>
-                <li class="nav-item"><a href="/students" class="nav-link text-white">👩‍🎓 Students</a></li>
                 <li class="nav-item"><a href="/lectures" class="nav-link text-white">👨‍🏫 Lectures</a></li>
+                <li class="nav-item"><a href="/students" class="nav-link text-white">👩‍🎓 Students</a></li>
                 <li class="nav-item"><a href="#" class="nav-link text-white">⚙️ Settings</a></li>
                 <li class="nav-item"><a href="#" class="nav-link text-white">📩 Messages</a></li>
                 <li class="nav-item mt-auto"><hr><p class="small">Logged in as Admin</p></li>

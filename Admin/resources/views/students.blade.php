@@ -17,7 +17,17 @@
       <th>{{ $data->name }}</th>
       <th>{{ $data->category }}</th>
       <th>{{ $data->durrarion }}</th>
-      <th></th>
+      <td>
+        <!-- View Button -->
+        <a href="" class="btn btn-info btn-sm">View</a>
+
+        <!-- Delete Form -->
+        <form action="" method="POST" style="display:inline-block;">
+          @csrf
+          <!-- @method('DELETE') -->
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
+        </form>
+      </td>
     </tr>
     @endforeach
   </tbody>
@@ -31,21 +41,29 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-pink text-white">
-        <h5 class="modal-title">Add Course</h5>
+        <h5 class="modal-title">Add Student</h5>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form id="courseForm" enctype="multipart/form-data">
+      <form id="lectureForm" enctype="multipart/form-data">
         <div class="modal-body">
-          <input type="text" class="form-control mb-2" name="name" placeholder="Course Name" required>
+          <input type="text" class="form-control mb-2" name="f_name" placeholder="Lecture First Name" required>
+          <input type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name">
           <select class="form-control mb-2" id="courseCategory" name="category" required>
-            <option value="">-- Select the Category --</option>
-            <option value="Hair Styling">Hair Styling</option>
-            <option value="Makeup">Makeup Artisty</option>
-            <option value="Beauty">Beauty</option>
+            <option value="">-- Select the Course --</option>
+            @foreach ($courseList as $course)
+            <option value="{{ $course['id'] }}">{{ $course['name'] }}</option>
+            @endforeach
+          </select>
+          <select class="form-control mb-2" id="batch" name="category" required>
+            <option value="">-- Select the Batch --</option>
+            @foreach ($batchList as $batch)
+            <option value="{{ $batch['id'] }}">{{ $batch['name'] }}</option>
+            @endforeach
           </select>
 
-          <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" required>
-          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Description"></textarea>
+          <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
+          <input type="email" name="email" class="form-control mb-2" placeholder="email" required>
+          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Qualifications"></textarea>
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
           <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 
