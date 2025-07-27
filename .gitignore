@@ -1,0 +1,4 @@
+/Admin/vendor/
+.env
+storage
+Admin/bootstrap/cache

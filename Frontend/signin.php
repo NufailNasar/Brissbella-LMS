@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif ($role == 'instructor') {
                 echo "<script>window.location.href='Instructorhomepage.php';</script>";
             } elseif ($role == 'admin') {
-                echo "<script>window.location.href='Adminhomepage.php';</script>";
+                echo "<script>window.location.href='http://127.0.0.1:8005/';</script>";
             } else {
                 echo "<script>alert('Unknown role.');</script>";
             }
