@@ -6,18 +6,28 @@
   <thead class="thead-dark">
     <tr>
       <th>Name</th>
-      <th>Category</th>
-      <th>Duration</th>
+      <th>Email</th>
+      <th>Cource</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     @foreach ( $lectureData as $data )
     <tr>
-      <th>{{ $data->name }}</th>
-      <th>{{ $data->category }}</th>
-      <th>{{ $data->durrarion }}</th>
-      <th></th>
+      <th>{{ $data->f_name }} {{ $data->l_name }}</th>
+      <th>{{ $data->email }}</th>
+      <th>{{ $data->course_name }}</th>
+      <td>
+        <!-- View Button -->
+        <a href="" class="btn btn-info btn-sm">View</a>
+
+        <!-- Delete Form -->
+        <form action="" method="POST" style="display:inline-block;">
+          @csrf
+          <!-- @method('DELETE') -->
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
+        </form>
+      </td>
     </tr>
     @endforeach
   </tbody>
@@ -37,7 +47,7 @@
       <form id="lectureForm" enctype="multipart/form-data">
         <div class="modal-body">
           <input type="text" class="form-control mb-2" name="f_name" placeholder="Lecture First Name" required>
-          <input type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name" >
+          <input type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name">
           <select class="form-control mb-2" id="courseCategory" name="category" required>
             <option value="">-- Select the Course --</option>
             @foreach ($courseList as $course)

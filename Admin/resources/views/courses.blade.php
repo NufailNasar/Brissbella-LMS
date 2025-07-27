@@ -17,7 +17,17 @@
       <th>{{ $data->name }}</th>
       <th>{{ $data->category }}</th>
       <th>{{ $data->durrarion }}</th>
-      <th></th>
+      <td>
+        <!-- View Button -->
+        <a href="" class="btn btn-info btn-sm">View</a>
+
+        <!-- Delete Form -->
+        <form action="" method="POST" style="display:inline-block;">
+          @csrf
+          <!-- @method('DELETE') -->
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
+        </form>
+      </td>
     </tr>
     @endforeach
   </tbody>
