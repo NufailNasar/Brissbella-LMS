@@ -11,6 +11,7 @@ Route::get('/dashboard', function() { return view('dashboard'); });
 // Route::get('/lectures', function() { return view('lectures'); });
 Route::post('/courses/save', [AdminController::class, 'courseSave'])->name('courses.save');
 Route::post('/lectures/save', [AdminController::class, 'lecturesSave'])->name('lecture.save');
+Route::post('/student/save', [AdminController::class, 'studentSave'])->name('student.save');
 
 Route::get('/courses', [AdminController::class, 'courseShow']);
 Route::get('/students', [AdminController::class, 'studentShow']);

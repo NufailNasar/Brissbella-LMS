@@ -53,6 +53,7 @@ $instructorPhoto = $_SESSION['instructor_photo'] ?? 'img/default-profile.png';
 </div>
 
 <!-- Student List Section -->
+<!-- Student List Section -->
 <div class="container mt-5">
     <h2 class="text-center mb-4">Your Students</h2>
     <table class="table table-bordered">
@@ -65,22 +66,37 @@ $instructorPhoto = $_SESSION['instructor_photo'] ?? 'img/default-profile.png';
             </tr>
         </thead>
         <tbody>
-            <!-- Dummy data -->
-            <tr>
-                <td>Dinithi Senanayake</td>
-                <td>Hair & Beauty Techniques</td>
-                <td>0771234567</td>
-                <td><span class="text-success">Active</span></td>
-            </tr>
-            <tr>
-                <td>Harshi Dilhara</td>
-                <td>Hair & Beauty Techniques</td>
-                <td>0768765432</td>
-                <td><span class="text-success">Active</span></td>
-            </tr>
+         <?php
+include('db_connect.php'); // Connect to DB
+
+     $query = "SELECT f_name, mobile, status FROM students";
+// $query = "SELECT s.f_name, s.mobile, s.status, courses.name AS course_name 
+//           FROM students AS s 
+//           LEFT JOIN courses ON courses.id = s.cid";
+
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $statusClass = $row['status'] === 'Active' ? 'text-success' : 'text-danger';
+        echo "<tr>
+            <td>{$row['f_name']}</td> <!-- Student Name -->
+            <td>{$row['mobile']}</td> <!-- Course -->
+            <td>{$row['mobile']}</td> <!-- Contact -->
+            <td><span class='$statusClass'>{$row['status']}</span></td> <!-- Status -->
+        </tr>";
+    }
+} else {
+    echo "<tr><td colspan='4' class='text-center'>No students found.</td></tr>";
+}
+
+$conn->close();
+?>
+
         </tbody>
     </table>
 </div>
+
 
 <!-- Payment Follow-up Section -->
 <div class="container mt-5">

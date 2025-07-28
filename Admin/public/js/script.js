@@ -58,5 +58,33 @@ $(document).ready(function () {
                 },
             });
         });
+
+         $("#studentForm").on("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: '/student/save',
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    toastr.success("Student saved successfully!");
+                    location.reload()
+                },
+                error: function (xhr) {
+                   toastr.error("Something went wrong.");
+                    $('#addCourseModal').modal('hide');
+                    // $('#courseForm')[0].reset();
+                },
+            });
+        });
     });
 });

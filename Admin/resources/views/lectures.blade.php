@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Cource</th>
+      <th>Joined Date</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
       <th>{{ $data->f_name }} {{ $data->l_name }}</th>
       <th>{{ $data->email }}</th>
       <th>{{ $data->course_name }}</th>
+      <th>{{ $data->created_at }}</th>
       <td>
         <!-- View Button -->
         <a href="" class="btn btn-info btn-sm">View</a>
