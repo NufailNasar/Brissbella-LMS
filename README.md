@@ -46,10 +46,10 @@ Brissbella Learning managemnet system is an interactive platform designed to sup
 
 ## 🤝 Contributors
 
-- **Nufail Nasar** – Project Manager  
-- **Ashan Lakpradeepa** – Scheduling & Deployment  
-- **Sathindu Wimalarathne** – Risk Analysis & QA  
-- **Yohasha Edirisinghe** – Frontend & Backend  
-- **Aroshi Aluthgamage** – UI/UX & Documentation  
+- **Nufail Nasar** – Project Manager
+- **Aroshi Aluthgamage** – Startup Manager
+- **Yohasha Edirisinghe** – Quality Manager
+- **Ashan Lakpradeepa** – Schedule Manager
+- **Sathindu Wimalarathne** – Risk Manager
 
 ---
