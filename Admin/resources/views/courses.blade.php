@@ -18,22 +18,16 @@
       <th>{{ $data->category }}</th>
       <th>{{ $data->durrarion }}</th>
       <td>
-        <!-- View Button -->
-        <a href="" class="btn btn-info btn-sm">View</a>
-
-        <!-- Delete Form -->
-        <form action="" method="POST" style="display:inline-block;">
-          @csrf
-          <!-- @method('DELETE') -->
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
-        </form>
+        <a href="{{ route('courses.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
+        <a href="{{ route('courses.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-c" data-id="{{ $data->id }}"> Delete</button>
       </td>
     </tr>
     @endforeach
   </tbody>
 </table>
 <div class="pagination-wrapper">
-    {{ $courceData->links() }}
+  {{ $courceData->links() }}
 </div>
 
 <!-- Modal -->
@@ -52,10 +46,13 @@
             <option value="Hair Styling">Hair Styling</option>
             <option value="Makeup">Makeup Artisty</option>
             <option value="Beauty">Beauty</option>
+            <option value="Facial">Facial</option>
+            <option value="Bridal">Bridal</option>
           </select>
 
           <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" required>
-          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Description"></textarea>
+          <textarea id="summernote" name="description">{!! old('description', '<p>desciption</p>') !!}</textarea>
+
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
           <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 

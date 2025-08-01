@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Cource</th>
+      <th>Joined Date</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -17,16 +18,11 @@
       <th>{{ $data->f_name }} {{ $data->l_name }}</th>
       <th>{{ $data->email }}</th>
       <th>{{ $data->course_name }}</th>
+      <th>{{ $data->created_at }}</th>
       <td>
-        <!-- View Button -->
-        <a href="" class="btn btn-info btn-sm">View</a>
-
-        <!-- Delete Form -->
-        <form action="" method="POST" style="display:inline-block;">
-          @csrf
-          <!-- @method('DELETE') -->
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
-        </form>
+        <a href="{{ route('lectures.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
+        <a href="{{ route('lectures.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-c" data-id="{{ $data->id }}"> Delete</button>
       </td>
     </tr>
     @endforeach
