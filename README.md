@@ -1,5 +1,6 @@
 # Brissbella-LMS
-A web-based Learning Management System for Brissbella Academy to manage online courses, student registrations, payments, and instructor workflows. Built with PHP, MySQL, and HTML/CSS, supporting admin and student dashboards with modular backend integration.
+
+A comprehensive web-based Learning Management System designed for Brissbella Academy to streamline the management of online courses, student registrations, payment processing, and instructor workflows. The system features dedicated dashboards for administrators, instructors, and students, enabling efficient role-based access and operations. Built using PHP, Laravel, MySQL, React, and HTML/CSS, the platform offers a modular backend architecture for seamless integration, scalability, and maintenance.
 
 ## 📚 Project Overview
 
