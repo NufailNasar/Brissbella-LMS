@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+  p{
+    padding: 17px !important;
+  }
+</style>
+
 <h2 class="mb-4">Students</h2>
 <button class="btn btn-pink mb-3 float-right" data-toggle="modal" data-target="#addStudentModal">+ Add Student</button>
 <table class="table table-hover table-bordered">
@@ -22,16 +28,9 @@
       <th>{{ $data->mobile }}</th>
       <th>{{ $data->email }}</th>
       <td>
-        <!-- View Button -->
-        <a href="" class="btn btn-info btn-sm">View</a>
-
-        <!-- Delete Form -->
-        <form action="" method="POST" style="display:inline-block;">
-          @csrf
-          <!-- @method('DELETE') -->
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</button>
-        </form>
-      </td>
+        <a href="{{ route('students.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
+        <a href="{{ route('students.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-s" data-id="{{ $data->id }}"> Delete</button>      </td>
     </tr>
     @endforeach
   </tbody>

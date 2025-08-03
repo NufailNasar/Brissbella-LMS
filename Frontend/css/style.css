@@ -432,3 +432,6 @@
     padding-right: 0;
     border-right: none;
 }
+ p{
+    padding: 17px !important;
+  }
