@@ -28,7 +28,7 @@
       <th>{{ $data->mobile }}</th>
       <th>{{ $data->email }}</th>
       <td>
-        <a href="{{ route('students.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
+        <!-- <a href="{{ route('students.view', $data->id) }}" class="btn btn-info btn-sm">View</a> -->
         <a href="{{ route('students.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
         <button type="button" class="btn btn-danger btn-sm delete-btn-s" data-id="{{ $data->id }}"> Delete</button>      </td>
     </tr>

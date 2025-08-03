@@ -11,6 +11,24 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
+    public function home(){
+
+        $c_count = Cources::count();
+        $l_count = Lecture::count();
+        $s_count = Student::count();
+        $c_list = Cources::select('name', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get()
+            ->map(function ($course) {
+                return [
+                    'name' => $course->name,
+                    'created_at_diff' => $course->created_at->diffForHumans()
+                ];
+            });
+        return view('dashboard')->with(compact('c_count', 'l_count', 'c_list' , 's_count'));
+    }
+
     public function courseShow()
     {
         $courceData = Cources::where('is_active', 1)->orderBy('id', 'desc')->paginate(5);
