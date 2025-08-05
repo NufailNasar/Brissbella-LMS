@@ -24,7 +24,7 @@
           </select>
 
           <input  value="{{ $student->mobile }}" type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
-          <input  value="{{ $student->email }}" type="email" name="email" class="form-control mb-2" placeholder="email" required>
+          <input  value="{{ $student->email }}" type="hidden" name="email" class="form-control mb-2" placeholder="email" required>
           <!-- <textarea class="form-control mb-2" rows="5" name="description" placeholder="Qualifications"></textarea> -->
           <!-- <input  value="" type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)"> -->
           <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />

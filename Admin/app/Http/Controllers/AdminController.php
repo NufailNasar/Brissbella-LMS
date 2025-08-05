@@ -6,7 +6,10 @@ use App\Models\Batch;
 use App\Models\Cources;
 use App\Models\Lecture;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -93,6 +96,7 @@ class AdminController extends Controller
             $course->category = $request->category;
             $course->durrarion = $request->durration;
             $course->image = $imagePath ?? null;
+            $course->fee = $request->fee;
             $course->save();
 
             return response()->json(['status' => 'success', 'course_id' => $course->id]);
@@ -106,6 +110,13 @@ class AdminController extends Controller
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('courses', 'public');
             }
+             $userId = DB::table('users')->insertGetId([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'fullname' => $request->f_name . " " .  $request->f_name,
+                'role' => 'instructor',
+                'created_at' => now(),
+            ]);
 
             $lecture = new Lecture();
             $lecture->f_name = $request->f_name;
@@ -117,6 +128,7 @@ class AdminController extends Controller
             $lecture->Address = $request->addreess;
             $lecture->dob = $request->dob;
             $lecture->nic = $request->nic;
+            $lecture->uid = $userId;
             // $lecture->image = $imagePath ?? null;
             $lecture->save();
 
@@ -133,6 +145,15 @@ class AdminController extends Controller
                 $imagePath = $request->file('image')->store('courses', 'public');
             }
 
+
+            $userId = DB::table('users')->insertGetId([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'fullname' => $request->f_name . " " .  $request->f_name,
+                'role' => 'student',
+                'created_at' => now(),
+            ]);
+
             $course = new Student();
             $course->f_name = $request->f_name;
             $course->l_name = $request->l_name;
@@ -141,7 +162,7 @@ class AdminController extends Controller
             $course->cid = $request->category;
             $course->bid = $request->batch;
             $course->nic = $request->identification;
-            // $course->image = $imagePath ?? null;
+            $course->uid = $userId;
             $course->save();
 
             return response()->json(['status' => 'success', 'course_id' => $course->id]);
@@ -264,6 +285,7 @@ class AdminController extends Controller
             $course->description = $request->description;
             $course->category = $request->category;
             $course->durrarion = $request->durration;
+            $course->fee = $request->fee;
             // $course->image = $imagePath ?? null;
             $course->update();
             return response()->json(['success' => true, 'message' => 'Course deleted successfully.']);

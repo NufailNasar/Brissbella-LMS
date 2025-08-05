@@ -17,6 +17,7 @@
             </select>
 
             <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" value="{{ $course->durrarion }}" required>
+            <input type="text" name="fee" class="form-control mb-2" value="{{ $course->fee }}" placeholder="Course Fee" required>
             <textarea id="summernote" name="description">{{$course->description}}</textarea>
 
             <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
