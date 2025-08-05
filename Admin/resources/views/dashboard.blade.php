@@ -8,7 +8,7 @@
         <div class="card text-white bg-info shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Courses</h5>
-                <p class="card-text display-4">20</p>
+                <p class="card-text display-4">{{$c_count}}</p>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="card text-white bg-warning shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Lectures</h5>
-                <p class="card-text display-4">12</p>
+                <p class="card-text display-4">{{ $l_count}}</p>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="card text-white bg-success shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Students</h5>
-                <p class="card-text display-4">80</p>
+                <p class="card-text display-4">{{ $s_count}}</p>
             </div>
         </div>
     </div>
@@ -36,9 +36,10 @@
         <div class="card shadow-sm">
             <div class="card-header bg-pink text-white">Recently Added Courses</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">UI/UX Design - 2 days ago</li>
-                <li class="list-group-item">Advanced PHP - 5 days ago</li>
-                <li class="list-group-item">SEO Mastery - 1 week ago</li>
+                @foreach ( $c_list as $data )
+                
+                <li class="list-group-item"> {{ $data['name'] }}- {{ $data['created_at_diff'] }}</li>
+                @endforeach
             </ul>
         </div>
     </div>

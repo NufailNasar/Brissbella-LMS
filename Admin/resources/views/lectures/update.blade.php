@@ -3,24 +3,28 @@
 @section('content')
 <div class="container">
     <!-- <h2 class="mb-4">Course Details</h2> -->
-    <form id="courseFormUpdate" enctype="multipart/form-data">
+    <form id="lectureFormUpdate" enctype="multipart/form-data">
         <div class="modal-body">
-            <input type="hidden" class="form-control mb-2" name="course_id" placeholder="Course Name" value="{{ $course->id }}" required>
-            <input type="text" class="form-control mb-2" name="name" placeholder="Course Name" value="{{ $course->name }}" required>
-            <select class="form-control mb-2" id="courseCategory" name="category" required>
-                <option value="">-- Select the Category --</option>
-                <option value="Hair Styling" {{ $course->category == 'Hair Styling' ? 'selected' : '' }}>Hair Styling</option>
-                <option value="Makeup" {{ $course->category == 'Makeup' ? 'selected' : '' }}>Makeup Artistry</option>
-                <option value="Beauty" {{ $course->category == 'Beauty' ? 'selected' : '' }}>Beauty</option>
-                <option value="Facial" {{ $course->category == 'Facial' ? 'selected' : '' }}>Facial</option>
-                <option value="Bridal" {{ $course->category == 'Bridal' ? 'selected' : '' }}>Bridal</option>
-            </select>
+          <input value="{{ $lecture->id }}" type="hidden" class="form-control mb-2" name="l_id" placeholder="Lecture First Name" required>
+          <input value="{{ $lecture->f_name }}" type="text" class="form-control mb-2" name="f_name" placeholder="Lecture First Name" required>
+          <input value="{{ $lecture->l_name }}" type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name">
+          <select class="form-control mb-2" id="courseCategory" name="category" required>
+            <option value="">-- Select the Course --</option>
+            @foreach ($courseList as $course)
+                <option value="{{ $course['id'] }}" {{ $lecture->cid == $course['id'] ? 'selected' : '' }}>
+                    {{ $course['name'] }}
+                </option>
+            @endforeach
+          </select>
 
-            <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" value="{{ $course->durrarion }}" required>
-            <textarea id="summernote" name="description">{{$course->description}}</textarea>
-
-            <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
-            <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
+          <input value="{{ $lecture->mobile }}" type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
+          <input value="{{ $lecture->email }}" type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+          <input value="{{ $lecture->Address }}" type="test" name="addreess" class="form-control mb-2" placeholder="Addreess" required>
+          <input value="{{ $lecture->nic }}" type="test" name="nic" class="form-control mb-2" placeholder="NIC" required>
+          <input value="{{ $lecture->dob }}" type="test" name="dob" class="form-control mb-2" placeholder="DOB 07/13/1990" required>
+        <textarea class="form-control mb-2" id="summernote" rows="5" name="description" placeholder="Qualifications">{{ old('description', $lecture->qualification) }}</textarea>
+          <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
+          <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 
         </div>
         <div class="modal-footer">
@@ -29,6 +33,6 @@
         </div>
     </form>
 
-    <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+    <!-- <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a> -->
 </div>
 @endsection

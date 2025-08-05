@@ -20,7 +20,6 @@
             <textarea id="summernote" name="description">{{$course->description}}</textarea>
 
             <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
-            <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 
         </div>
         <div class="modal-footer">

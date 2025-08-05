@@ -1,27 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- or your base layout --}}
 
 @section('content')
-<div class="container">
-    <!-- <h2 class="mb-4">Course Details</h2> -->
-
-    <div class="card mb-4">
-        <div class="card-header bg-pink text-white">
-            <h4>{{ $course->name }}</h4>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4>Lecture Details</h4>
         </div>
         <div class="card-body">
-            <p><strong>Name:</strong> {{ $course->category }}</p>
-            <p><strong>Contact Number:</strong> {{ $course->durrarion }}</p>
-            <p><strong>Email:</strong> {{ $studentCount }}</p>
-            <p><strong>Course:</strong> {{ $studentCount }}</p>
-            <p><strong>Qualification:</strong></p>
-            <p>{!! $course->description !!}</p>
-            
-            @if ($course->image)
-                <img src="{{ asset('storage/' . $course->image) }}" alt="Course Image" style="max-width: 300px;">
-            @endif
+            <p><strong>First Name:</strong> {{ $lecture->f_name }}</p>
+            <p><strong>Last Name:</strong> {{ $lecture->l_name }}</p>
+            <p><strong>Mobile:</strong> {{ $lecture->mobile }}</p>
+            <p><strong>Email:</strong> {{ $lecture->email }}</p>
+            <p><strong>Qualification:</strong> {!! $lecture->qualification !!}</p> {{-- Allow rich HTML if needed --}}
+            <p><strong>Course:</strong> {{ \App\Models\Cources::find($lecture->cid)->name ?? 'N/A' }}</p>
+            <p><strong>Address:</strong> {{ $lecture->Address }}</p>
+            <p><strong>Date of Birth:</strong> {{ $lecture->dob }}</p>
+            <p><strong>NIC:</strong> {{ $lecture->nic }}</p>
         </div>
     </div>
-
-    <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
 </div>
 @endsection
