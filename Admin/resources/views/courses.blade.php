@@ -57,7 +57,7 @@
           </select>
 
           <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" required>
-          <input type="text" name="fee" class="form-control mb-2" placeholder="Course Fee" required>
+          <input type="number" name="fee" class="form-control mb-2" placeholder="Course Fee" required>
           <textarea id="summernote" name="description">{!! old('description', '<p>desciption</p>') !!}</textarea>
 
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">

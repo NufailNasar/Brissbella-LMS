@@ -66,8 +66,9 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
             $courseId = $course['id'];
             $courseName = isset($course['name']) ? $course['name'] : 'Unnamed Course';
             $courseCategory = isset($course['category']) ? $course['category'] : 'N/A';
-            $courseDuration = isset($course['durrarion']) ? $course['durrarion'] : 'Category';
-            $courseImage = !empty($course['image']) ? "http://127.0.0.1:8005/".$course['image'] : 'img/default-course.jpg';
+            $courseDuration = isset($course['durrarion']) ? $course['durrarion'] : 'Not Specified';
+            $courseFee = isset($course['fee']) && $course['fee'] !== null ? 'Rs. ' . number_format($course['fee'], 2) : 'Free';
+            $courseImage = !empty($course['image']) ? "http://127.0.0.1:8005/" . $course['image'] : 'img/default-course.jpg';
 
             // Get instructor for this course
             $instructorSql = "SELECT * FROM lectures WHERE cid = $courseId LIMIT 1";
@@ -81,13 +82,15 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
             }
 ?>
     <div class="col-md-4 mb-4">
-        <div class="card">
-            <img src="<?= htmlspecialchars($courseImage) ?>" class="card-img-top" alt="Course Image">
+        <div class="card h-100 shadow">
+            <img src="<?= htmlspecialchars($courseImage) ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
             <div class="card-body">
                 <h5 class="card-title"><?= htmlspecialchars($courseName) ?></h5>
-                <p>Instructor: <?= $instructorName ?></p>
-                <p class="text-muted"><?= htmlspecialchars($courseDuration) ?> • <?= htmlspecialchars($courseCategory) ?></p>
-                <a href="#" class="btn btn-sm btn-outline-success">Enroll Now</a>
+                <p><strong>Instructor:</strong> <?= $instructorName ?></p>
+                <p class="mb-1"><strong>Duration:</strong> <?= htmlspecialchars($courseDuration) ?></p>
+                <p class="mb-1"><strong>Category:</strong> <?= htmlspecialchars($courseCategory) ?></p>
+                <p class="mb-2"><strong>Course Fee:</strong> <?= htmlspecialchars($courseFee) ?></p>
+                <a href="#" class="btn btn-sm btn-outline-success w-100">Enroll Now</a>
             </div>
         </div>
     </div>
