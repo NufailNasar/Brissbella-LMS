@@ -67,8 +67,9 @@
 
           <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
           <input type="email" name="email" class="form-control mb-2" placeholder="email" required>
-          <!-- <textarea class="form-control mb-2" rows="5" name="description" placeholder="Qualifications"></textarea> -->
-          <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
+          <!-- <input type="text" name="username" class="form-control mb-2" placeholder="username" required> -->
+          <input type="password" name="password" class="form-control mb-2" placeholder="password" required>         
+           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
           <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 
         </div>
