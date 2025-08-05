@@ -63,6 +63,7 @@
           <input type="test" name="addreess" class="form-control mb-2" placeholder="Addreess" required>
           <input type="test" name="nic" class="form-control mb-2" placeholder="NIC" required>
           <input type="test" name="dob" class="form-control mb-2" placeholder="DOB 07/13/1990" required>
+          <input type="password" name="password" class="form-control mb-2" placeholder="password" required> 
           <textarea class="form-control mb-2" id="summernote" rows="5" name="description" placeholder="Qualifications"></textarea>
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
           <!-- <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" /> -->

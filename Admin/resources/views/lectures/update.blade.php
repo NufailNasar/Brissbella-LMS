@@ -18,7 +18,7 @@
           </select>
 
           <input value="{{ $lecture->mobile }}" type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
-          <input value="{{ $lecture->email }}" type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+          <input value="{{ $lecture->email }}" type="hidden" name="email" class="form-control mb-2" placeholder="Email" required>
           <input value="{{ $lecture->Address }}" type="test" name="addreess" class="form-control mb-2" placeholder="Addreess" required>
           <input value="{{ $lecture->nic }}" type="test" name="nic" class="form-control mb-2" placeholder="NIC" required>
           <input value="{{ $lecture->dob }}" type="test" name="dob" class="form-control mb-2" placeholder="DOB 07/13/1990" required>
