@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+  p{
+    padding: 17px !important;
+  }
+</style>
+
 <h2 class="mb-4">Courses</h2>
 <button class="btn btn-pink mb-3 float-right" data-toggle="modal" data-target="#addCourseModal">+ Add Course</button>
 <table class="table table-hover table-bordered">
@@ -20,7 +26,7 @@
       <td>
         <a href="{{ route('courses.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
         <a href="{{ route('courses.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
-        <button type="button" class="btn btn-danger btn-sm delete-btn-c" data-id="{{ $data->id }}"> Delete</button>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-c" data-id="{{ $data->id }}"> Deactivate </button>
       </td>
     </tr>
     @endforeach
@@ -54,7 +60,7 @@
           <textarea id="summernote" name="description">{!! old('description', '<p>desciption</p>') !!}</textarea>
 
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
-          <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
+          <!-- <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" /> -->
 
         </div>
         <div class="modal-footer">

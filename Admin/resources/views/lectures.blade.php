@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+
+<style>
+  p{
+    padding: 17px !important;
+  }
+</style>
+
 <h2 class="mb-4">Lectures</h2>
 <button class="btn btn-pink mb-3 float-right" data-toggle="modal" data-target="#addLectureModal">+ Add Lectures</button>
 <table class="table table-hover table-bordered">
@@ -22,7 +29,7 @@
       <td>
         <a href="{{ route('lectures.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
         <a href="{{ route('lectures.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
-        <button type="button" class="btn btn-danger btn-sm delete-btn-c" data-id="{{ $data->id }}"> Delete</button>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-l" data-id="{{ $data->id }}"> Delete</button>
       </td>
     </tr>
     @endforeach
@@ -52,10 +59,13 @@
           </select>
 
           <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
-          <input type="email" name="email" class="form-control mb-2" placeholder="email" required>
-          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Qualifications"></textarea>
+          <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+          <input type="test" name="addreess" class="form-control mb-2" placeholder="Addreess" required>
+          <input type="test" name="nic" class="form-control mb-2" placeholder="NIC" required>
+          <input type="test" name="dob" class="form-control mb-2" placeholder="DOB 07/13/1990" required>
+          <textarea class="form-control mb-2" id="summernote" rows="5" name="description" placeholder="Qualifications"></textarea>
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
-          <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
+          <!-- <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" /> -->
 
         </div>
         <div class="modal-footer">
