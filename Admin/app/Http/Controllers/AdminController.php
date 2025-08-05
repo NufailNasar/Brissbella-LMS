@@ -64,8 +64,27 @@ class AdminController extends Controller
     {
         try {
 
+            $imagePath = null; // Default if no image uploaded
+
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('courses', 'public');
+                $image = $request->file('image');
+
+                if ($image && $image->isValid()) {
+                    $extension = $image->getClientOriginalExtension(); // e.g., jpg, png
+                    $filename = uniqid() . '.' . $extension;
+
+                    // Save to public/img/courses
+                    $image->move(public_path('img/courses'), $filename);
+
+                    // Optional: Check if the file actually exists and is not empty
+                    $imagePath = 'img/courses/' . $filename;
+
+                    if (!file_exists(public_path($imagePath)) || filesize(public_path($imagePath)) == 0) {
+                        // Log or handle error - corrupted image
+                        \Log::error("Image upload failed: file missing or empty.");
+                        $imagePath = null;
+                    }
+                }
             }
 
             $course = new Cources();
@@ -215,11 +234,37 @@ class AdminController extends Controller
     public function courseUpdate(Request $request){
         
         $course = Cources::find($request->course_id);
+
+        // $imagePath = null; // Default if no image uploaded
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            if ($image && $image->isValid()) {
+                $extension = $image->getClientOriginalExtension(); // e.g., jpg, png
+                $filename = uniqid() . '.' . $extension;
+
+                // Save to public/img/courses
+                $image->move(public_path('img/courses'), $filename);
+
+                // Optional: Check if the file actually exists and is not empty
+                $imagePath = 'img/courses/' . $filename;
+                 $course->image = $imagePath ?? $course->image;
+                // $course->image = $imagePath ?? $course->image;
+                if (!file_exists(public_path($imagePath)) || filesize(public_path($imagePath)) == 0) {
+                    // Log or handle error - corrupted image
+                    \Log::error("Image upload failed: file missing or empty.");
+                    $imagePath = null;
+                }
+            }
+        }
+
         if ($course) {
             $course->name = $request->name;
             $course->description = $request->description;
             $course->category = $request->category;
             $course->durrarion = $request->durration;
+            // $course->image = $imagePath ?? null;
             $course->update();
             return response()->json(['success' => true, 'message' => 'Course deleted successfully.']);
         }
