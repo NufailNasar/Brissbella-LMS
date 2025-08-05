@@ -192,137 +192,63 @@ include('db_connect.php');
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
-            <h1 class="mb-5">Our featured Programs</h1>
+            <h1 class="mb-5">Our Featured Programs</h1>
         </div>
         <div class="row g-4 justify-content-center">
-            <!-- Repeat for each course below -->
 
-            <!-- Course 1 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <?php
+        $sql = "SELECT * FROM cources WHERE is_active = 1 ORDER BY created_at DESC";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0):
+            $delay = 0.1;
+            while ($course = $result->fetch_assoc()):
+                $courseName = $course['name'] ?? 'Unnamed Course';
+                $coursePrice = $course['price'] ?? 'Rs. 00';
+                $courseImage = !empty($course['image']) ?"http://127.0.0.1:8005/". $course['image'] : 'img/default-course.jpg';
+                $courseDuration = $course['durration'] ?? 'Duration N/A';
+                $courseCategory = $course['category'] ?? 'Category N/A';
+
+                // Simulate student count (optional) – or fetch from actual enrollment table if you have one
+                $studentCount = rand(20, 50);
+
+                // Delay animation per item
+                $wowDelay = number_format($delay, 1) . "s";
+                $delay += 0.1;
+        ?>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="<?= $wowDelay ?>">
                 <div class="course-item bg-light">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/advance-beauty.jpg" alt="Advance Beauty Course">
+                        <img class="img-fluid" src="<?= htmlspecialchars($courseImage) ?>" alt="<?= htmlspecialchars($courseName) ?>">
                         <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                             <a href="#" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
                             <a href="#" class="btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                         </div>
                     </div>
                     <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 45,000</h3>
-                        <h5 class="mb-4">Advance Beauty Course</h5>
+                        <h3 class="mb-0"><?= htmlspecialchars($coursePrice) ?></h3>
+                        <h5 class="mb-2"><?= htmlspecialchars($courseName) ?></h5>
+                        <p class="text-muted small"><?= htmlspecialchars($courseDuration) ?> • <?= htmlspecialchars($courseCategory) ?></p>
                     </div>
                     <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>40 Students</small>
+                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i><?= $studentCount ?> Students</small>
                     </div>
                 </div>
             </div>
-
-            
-
-            <!-- Course 3 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="course-item bg-light">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/basic-beauty.jpg" alt="Basic Beauty Course">
-                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                            <a href="#" class="btn btn-sm btn-primary px-3 border-end">Read More</a>
-                            <a href="#" class="btn btn-sm btn-primary px-3">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 25,000</h3>
-                        <h5 class="mb-4">Basic Beauty Course</h5>
-                    </div>
-                    <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>50 Students</small>
-                    </div>
-                </div>
+        <?php
+            endwhile;
+        else:
+        ?>
+            <div class="col-12 text-center text-muted">
+                No featured courses available at the moment.
             </div>
-
-            <!-- Course 4 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="course-item bg-light">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/basic-hair.jpeg" alt="Basic Hair Styling">
-                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                            <a href="#" class="btn btn-sm btn-primary px-3 border-end">Read More</a>
-                            <a href="#" class="btn btn-sm btn-primary px-3">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 20,000</h3>
-                        <h5 class="mb-4">Basic Hair Styling</h5>
-                    </div>
-                    <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>42 Students</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course 2 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="course-item bg-light">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/advanced-hair.jpg" alt="Advanced Hair Styling">
-                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                            <a href="#" class="btn btn-sm btn-primary px-3 border-end">Read More</a>
-                            <a href="#" class="btn btn-sm btn-primary px-3">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 40,000</h3>
-                        <h5 class="mb-4">Advanced Hair Styling</h5>
-                    </div>
-                    <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>36 Students</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course 5 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="course-item bg-light">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/bridal-hair.jpg" alt="Bridal Hair Styling">
-                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                            <a href="#" class="btn btn-sm btn-primary px-3 border-end">Read More</a>
-                            <a href="#" class="btn btn-sm btn-primary px-3">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 38,000</h3>
-                        <h5 class="mb-4">Bridal Hair Styling</h5>
-                    </div>
-                    <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>33 Students</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course 6 -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="course-item bg-light">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/bridal-makeup.jpg" alt="Bridal Makeup Artistry">
-                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                            <a href="#" class="btn btn-sm btn-primary px-3 border-end">Read More</a>
-                            <a href="#" class="btn btn-sm btn-primary px-3">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 pb-0">
-                        <h3 class="mb-0">Rs. 42,000</h3>
-                        <h5 class="mb-4">Bridal Makeup Artistry</h5>
-                    </div>
-                    <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>47 Students</small>
-                    </div>
-                </div>
-            </div>
+        <?php endif; ?>
 
         </div>
     </div>
 </div>
 <!-- Courses End -->
+
 
 
 

@@ -66,8 +66,8 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
             $courseId = $course['id'];
             $courseName = isset($course['name']) ? $course['name'] : 'Unnamed Course';
             $courseCategory = isset($course['category']) ? $course['category'] : 'N/A';
-            $courseDuration = isset($course['durration']) ? $course['durration'] : 'Category';
-            $courseImage = !empty($course['image']) ? $course['image'] : 'img/default-course.jpg';
+            $courseDuration = isset($course['durrarion']) ? $course['durrarion'] : 'Category';
+            $courseImage = !empty($course['image']) ? "http://127.0.0.1:8005/".$course['image'] : 'img/default-course.jpg';
 
             // Get instructor for this course
             $instructorSql = "SELECT * FROM lectures WHERE cid = $courseId LIMIT 1";
