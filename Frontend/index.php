@@ -203,14 +203,20 @@ include('db_connect.php');
         if ($result->num_rows > 0):
             $delay = 0.1;
             while ($course = $result->fetch_assoc()):
+                $courseId = $course['id'];
                 $courseName = $course['name'] ?? 'Unnamed Course';
-                $coursePrice = $course['price'] ?? 'Rs. 00';
-                $courseImage = !empty($course['image']) ?"http://127.0.0.1:8005/". $course['image'] : 'img/default-course.jpg';
-                $courseDuration = $course['durration'] ?? 'Duration N/A';
+                $coursePrice = !empty($course['fee']) ? 'Rs. ' . number_format($course['fee'], 2) : 'Rs. 0.00';
+                $courseImage = !empty($course['image']) ? "http://127.0.0.1:8005/" . $course['image'] : 'img/default-course.jpg';
+                $courseDuration = $course['durrarion'] ?? 'Duration N/A';
                 $courseCategory = $course['category'] ?? 'Category N/A';
 
-                // Simulate student count (optional) – or fetch from actual enrollment table if you have one
-                $studentCount = rand(20, 50);
+                // Get actual student count from `students` table
+                $studentSql = "SELECT COUNT(*) as student_count FROM students WHERE cid = $courseId";
+                $studentRes = $conn->query($studentSql);
+                $studentCount = 0;
+                if ($studentRes && $studentRes->num_rows > 0) {
+                    $studentCount = $studentRes->fetch_assoc()['student_count'];
+                }
 
                 // Delay animation per item
                 $wowDelay = number_format($delay, 1) . "s";
@@ -231,7 +237,9 @@ include('db_connect.php');
                         <p class="text-muted small"><?= htmlspecialchars($courseDuration) ?> • <?= htmlspecialchars($courseCategory) ?></p>
                     </div>
                     <div class="d-flex border-top">
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i><?= $studentCount ?> Students</small>
+                        <small class="flex-fill text-center py-2">
+                            <i class="fa fa-user text-primary me-2"></i><?= $studentCount ?> Students
+                        </small>
                     </div>
                 </div>
             </div>
@@ -248,6 +256,7 @@ include('db_connect.php');
     </div>
 </div>
 <!-- Courses End -->
+
 
 
 
