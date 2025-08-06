@@ -68,7 +68,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <a href="contact.php" class="nav-item nav-link <?= $currentPage == 'contact.php' ? 'active' : '' ?>">Contact</a>
         </div>
 
-        <a href="signup.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block <?= $currentPage == 'signup.php' ? 'active' : '' ?>">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+        <a href="signin.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block <?= $currentPage == 'signin.php' ? 'active' : '' ?>">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
 <!-- Navbar End -->
