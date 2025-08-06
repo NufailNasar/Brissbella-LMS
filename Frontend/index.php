@@ -20,7 +20,7 @@ include('db_connect.php');
                                 <h1 class="display-3 text-white animated slideInDown">Brissbella Academy LMS Platform</h1>
                                 <p class="fs-5 text-white mb-4 pb-2">A smart, secure, and user-friendly Learning Management System tailored for students, instructors, and administrators.</p>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Learn More</a>
-                                <a href="signup.php" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Get Started</a>
+                                <a href="signin.php" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Get Started</a>
                             </div>
                         </div>
                     </div>
