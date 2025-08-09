@@ -12,12 +12,42 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
     ? $_SESSION['student_photo'] 
     : 'https://www.w3schools.com/howto/img_avatar.png';
 
+
+    // Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: signin.php");
+    exit();
+}
+
+$sid = $_SESSION['user_id'];
+
+// Fetch student's name
+$stmt = $conn->prepare("
+    SELECT CONCAT(f_name, ' ', l_name) AS full_name 
+    FROM students 
+    WHERE uid = ?
+    LIMIT 1
+");
+$stmt->bind_param("i", $sid);
+$stmt->execute();
+$stmt->bind_result($studentName);
+$stmt->fetch();
+$stmt->close();
+
+// Fallback if no name found
+if (empty($studentName)) {
+    $studentName = "Student";
+}
+
+$studentShortName = explode(' ', trim($studentName))[0];
+
 ?>
 
 <body>
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Welcome, <?= htmlspecialchars($studentShortName) ?>!</h2>
+
         <img src="<?= $studentPhoto ?>" alt="Profile" class="rounded-circle" style="width: 50px; height: 50px;">
     </div>
 
