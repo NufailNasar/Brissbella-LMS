@@ -1,6 +1,5 @@
 <?php
 session_start();
-include('header.php');
 include('db_connect.php');
 
 // Dummy Admin Info (should be fetched from DB using session data)

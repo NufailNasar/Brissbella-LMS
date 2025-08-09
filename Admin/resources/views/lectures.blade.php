@@ -57,6 +57,12 @@
             <option value="{{ $course['id'] }}">{{ $course['name'] }}</option>
             @endforeach
           </select>
+          <select class="form-control mb-2" id="batch" name="batch" required>
+            <option value="">-- Select the Batch --</option>
+            @foreach ($batchList as $batch)
+            <option value="{{ $batch['id'] }}">{{ $batch['name'] }}</option>
+            @endforeach
+          </select>
 
           <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
           <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>

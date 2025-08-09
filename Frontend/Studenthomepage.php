@@ -3,7 +3,7 @@
 
 <?php
 session_start();
-include('header.php');
+include('Aheader.php');
 include('db_connect.php');
 
 $studentName = "Nufail Nasar";
@@ -34,26 +34,51 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
     <div class="tab-pane fade show active" id="courses">
         <!-- Enrolled Courses -->
         <h4>Enrolled Courses</h4>
-        <div class="row">
+
+        <?php
+        $sid = 1;
+        $sid =  $_SESSION['user_id'];
+        $sql = "
+            SELECT 
+                c.*, 
+                CONCAT(l.f_name, ' ', l.l_name) AS instructor_name
+            FROM students s
+            JOIN cources c ON c.id = s.cid
+            JOIN lectures l ON l.bid = s.bid AND l.cid = s.cid
+            WHERE s.uid = $sid
+            LIMIT 1
+        ";
+        $result = $conn->query($sql);
+        $course = $result->fetch_assoc();
+        ?>
+
+        <?php if ($course): ?>
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="img/basic-beauty.jpg" class="card-img-top" alt="Course Image">
+                <?php
+                                $img = isset($course['image']) 
+                                    ? "http://127.0.0.1:8005/" . $course['image'] 
+                                    : 'img/basic-beauty.jpg';
+                                ?>
+                                <img src="<?= $img ?>" class="card-img-top" alt="Course Image">
                     <div class="card-body">
-                        <h5 class="card-title">Basic Beauty Course</h5>
-                        <p>Instructor: Ms. Kaveesha Silva</p>
+                        <h5 class="card-title"><?= htmlspecialchars($course['name']) ?></h5>
+                        <p>Instructor: <?= htmlspecialchars($course['instructor_name']) ?></p>
                         <div class="mb-2">
                             <label>Progress:</label>
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                    60%
+                                </div>
                             </div>
                         </div>
-                        <a href="course_view.php?course_id=1" class="btn btn-sm btn-outline-primary mt-2">Continue</a>
-
+                        <a href="course_view.php?course_id=<?= $course['id'] ?>" 
+                        class="btn btn-sm btn-outline-primary mt-2">Continue</a>
                     </div>
                 </div>
             </div>
-        </div>
-
+        <?php endif; ?>
 <!-- Available Courses -->
 <h4 class="mt-5">Available Courses</h4>
 <div class="row">
