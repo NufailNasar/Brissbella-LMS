@@ -1,23 +1,36 @@
 @extends('layouts.app')
 @section('content')
+
+<style>
+  p{
+    padding: 17px !important;
+  }
+</style>
+
 <h2 class="mb-4">Lectures</h2>
 <button class="btn btn-pink mb-3 float-right" data-toggle="modal" data-target="#addLectureModal">+ Add Lectures</button>
 <table class="table table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
       <th>Name</th>
-      <th>Category</th>
-      <th>Duration</th>
+      <th>Email</th>
+      <th>Cource</th>
+      <th>Joined Date</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     @foreach ( $lectureData as $data )
     <tr>
-      <th>{{ $data->name }}</th>
-      <th>{{ $data->category }}</th>
-      <th>{{ $data->durrarion }}</th>
-      <th></th>
+      <th>{{ $data->f_name }} {{ $data->l_name }}</th>
+      <th>{{ $data->email }}</th>
+      <th>{{ $data->course_name }}</th>
+      <th>{{ $data->created_at }}</th>
+      <td>
+        <a href="{{ route('lectures.view', $data->id) }}" class="btn btn-info btn-sm">View</a>
+        <a href="{{ route('lectures.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-l" data-id="{{ $data->id }}"> Delete</button>
+      </td>
     </tr>
     @endforeach
   </tbody>
@@ -37,7 +50,7 @@
       <form id="lectureForm" enctype="multipart/form-data">
         <div class="modal-body">
           <input type="text" class="form-control mb-2" name="f_name" placeholder="Lecture First Name" required>
-          <input type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name" >
+          <input type="text" class="form-control mb-2" name="l_name" placeholder="Lecture Last Name">
           <select class="form-control mb-2" id="courseCategory" name="category" required>
             <option value="">-- Select the Course --</option>
             @foreach ($courseList as $course)
@@ -46,10 +59,14 @@
           </select>
 
           <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
-          <input type="email" name="email" class="form-control mb-2" placeholder="email" required>
-          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Qualifications"></textarea>
+          <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+          <input type="test" name="addreess" class="form-control mb-2" placeholder="Addreess" required>
+          <input type="test" name="nic" class="form-control mb-2" placeholder="NIC" required>
+          <input type="test" name="dob" class="form-control mb-2" placeholder="DOB 07/13/1990" required>
+          <input type="password" name="password" class="form-control mb-2" placeholder="password" required> 
+          <textarea class="form-control mb-2" id="summernote" rows="5" name="description" placeholder="Qualifications"></textarea>
           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
-          <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
+          <!-- <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" /> -->
 
         </div>
         <div class="modal-footer">

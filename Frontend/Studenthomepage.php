@@ -54,45 +54,57 @@ $studentPhoto = isset($_SESSION['student_photo']) && !empty($_SESSION['student_p
             </div>
         </div>
 
-        <!-- Available Courses -->
-        <h4 class="mt-5">Available Courses</h4>
-        <div class="row">
-            <!-- Course 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/advanced-hair.jpg" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Advanced Hair Styling</h5>
-                        <p>Instructor: Ms. Dulani Perera</p>
-                        <a href="#" class="btn btn-sm btn-outline-success">Enroll Now</a>
-                    </div>
-                </div>
-            </div>
+<!-- Available Courses -->
+<h4 class="mt-5">Available Courses</h4>
+<div class="row">
+<?php
+    $sql = "SELECT * FROM cources WHERE is_active = 1 ORDER BY created_at DESC";
+    $result = $conn->query($sql);
 
-            <!-- Course 2 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/bridal-makeup.jpg" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Bridal Makeup Artistry</h5>
-                        <p>Instructor: Ms. Shani Fernando</p>
-                        <a href="#" class="btn btn-sm btn-outline-success">Enroll Now</a>
-                    </div>
-                </div>
-            </div>
+    if ($result->num_rows > 0):
+        while ($course = $result->fetch_assoc()):
+            $courseId = $course['id'];
+            $courseName = isset($course['name']) ? $course['name'] : 'Unnamed Course';
+            $courseCategory = isset($course['category']) ? $course['category'] : 'N/A';
+            $courseDuration = isset($course['durrarion']) ? $course['durrarion'] : 'Not Specified';
+            $courseFee = isset($course['fee']) && $course['fee'] !== null ? 'Rs. ' . number_format($course['fee'], 2) : 'Free';
+            $courseImage = !empty($course['image']) ? "http://127.0.0.1:8005/" . $course['image'] : 'img/default-course.jpg';
 
-            <!-- Course 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="img/bridal-hair.jpg" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Bridal Hair Styling</h5>
-                        <p>Instructor: Mr. Ayesh Rajapaksha</p>
-                        <a href="#" class="btn btn-sm btn-outline-success">Enroll Now</a>
-                    </div>
-                </div>
+            // Get instructor for this course
+            $instructorSql = "SELECT * FROM lectures WHERE cid = $courseId LIMIT 1";
+            $instructorResult = $conn->query($instructorSql);
+            if ($instructorResult->num_rows > 0) {
+                $instructor = $instructorResult->fetch_assoc();
+                $firstName = isset($instructor['Address']) ? $instructor['Address'] : '';
+                $instructorName = htmlspecialchars($instructor['l_name'] . ' ' . $firstName);
+            } else {
+                $instructorName = "TBD";
+            }
+?>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow">
+            <img src="<?= htmlspecialchars($courseImage) ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title"><?= htmlspecialchars($courseName) ?></h5>
+                <p><strong>Instructor:</strong> <?= $instructorName ?></p>
+                <p class="mb-1"><strong>Duration:</strong> <?= htmlspecialchars($courseDuration) ?></p>
+                <p class="mb-1"><strong>Category:</strong> <?= htmlspecialchars($courseCategory) ?></p>
+                <p class="mb-2"><strong>Course Fee:</strong> <?= htmlspecialchars($courseFee) ?></p>
+                <a href="#" class="btn btn-sm btn-outline-success w-100">Enroll Now</a>
             </div>
         </div>
+    </div>
+<?php
+        endwhile;
+    else:
+?>
+    <div class="col-12">
+        <p class="text-muted">No available courses at the moment.</p>
+    </div>
+<?php endif; ?>
+</div>
+
+
     </div>
 
         <div class="tab-pane fade" id="assignments">

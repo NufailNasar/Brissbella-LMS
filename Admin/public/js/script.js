@@ -9,7 +9,7 @@ $(document).ready(function () {
             let formData = new FormData(this);
 
             $.ajax({
-                url: '/courses/save',
+                url: "/courses/save",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -21,11 +21,11 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     toastr.success("Course saved successfully!");
-                    location.reload()
+                    location.reload();
                 },
                 error: function (xhr) {
-                   toastr.error("Something went wrong.");
-                    $('#addCourseModal').modal('hide');
+                    toastr.error("Something went wrong.");
+                    $("#addCourseModal").modal("hide");
                     // $('#courseForm')[0].reset();
                 },
             });
@@ -37,7 +37,7 @@ $(document).ready(function () {
             let formData = new FormData(this);
 
             $.ajax({
-                url: '/courses/save',
+                url: "/lectures/save",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -48,15 +48,234 @@ $(document).ready(function () {
                     ),
                 },
                 success: function (response) {
-                    toastr.success("Course saved successfully!");
-                    location.reload()
+                    toastr.success("Lecture saved successfully!");
+                    location.reload();
                 },
                 error: function (xhr) {
-                   toastr.error("Something went wrong.");
-                    $('#addCourseModal').modal('hide');
+                    toastr.error("Something went wrong.");
+                    $("#addCourseModal").modal("hide");
                     // $('#courseForm')[0].reset();
                 },
             });
         });
+
+        $("#studentForm").on("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "/student/save",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    toastr.success("Student saved successfully!");
+                    location.reload();
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong.");
+                    $("#addCourseModal").modal("hide");
+                    // $('#courseForm')[0].reset();
+                },
+            });
+        });
+
+        $("#courseFormUpdate").on("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "/courses/edit",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    toastr.success("Course updated successfully!");
+                    location.reload();
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong.");
+                    $("#addCourseModal").modal("hide");
+                    // $('#courseForm')[0].reset();
+                },
+            });
+        });
+
+        $("#lectureFormUpdate").on("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "/lectures/edit",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    toastr.success("Lecture updated successfully!");
+                    location.reload();
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong.");
+                    $("#addCourseModal").modal("hide");
+                    // $('#courseForm')[0].reset();
+                },
+            });
+        });
+
+        $("#studentFormUpdate").on("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "/students/edit",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    toastr.success("student updated successfully!");
+                    location.reload();
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong.");
+                    // $("#addCourseModal").modal("hide");
+                    // $('#courseForm')[0].reset();
+                },
+            });
+        });
+
+
+        $(document).on("click", ".delete-btn-c", function () {
+            let id = $(this).data("id");
+            if (!confirm("Are you sure you want to delete this course?"))
+                return;
+
+            $.ajax({
+                url: "/courses/delete/" + id,
+                method: "GET",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        location.reload(); // or remove the row with jQuery
+                    } else {
+                        toastr.error("Error: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error(
+                        "An error occurred while deleting the course."
+                    );
+                    console.error(xhr.responseText);
+                },
+            });
+        });
+
+        $(document).on("click", ".delete-btn-l", function () {
+            let id = $(this).data("id");
+            if (!confirm("Are you sure you want to delete this lecture ?"))
+                return;
+
+            $.ajax({
+                url: "/lectures/delete/" + id,
+                method: "GET",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        location.reload(); // or remove the row with jQuery
+                    } else {
+                        toastr.error("Error: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error(
+                        "An error occurred while deleting the course."
+                    );
+                    console.error(xhr.responseText);
+                },
+            });
+        });
+
+         $(document).on("click", ".delete-btn-s", function () {
+            let id = $(this).data("id");
+            if (!confirm("Are you sure you want to delete this student ?"))
+                return;
+
+            $.ajax({
+                url: "/students/delete/" + id,
+                method: "GET",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        location.reload(); // or remove the row with jQuery
+                    } else {
+                        toastr.error("Error: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error(
+                        "An error occurred while deleting the student."
+                    );
+                    console.error(xhr.responseText);
+                },
+            });
+        });
+        
+        $("#summernote").summernote({
+            height: 250, // Set editor height
+            toolbar: [
+                ["style", ["style"]],
+                ["font", ["bold", "italic", "underline", "clear"]],
+                ["fontname", ["fontname"]],
+                ["color", ["color"]],
+                ["para", ["ul", "ol", "paragraph"]],
+                ["table", ["table"]],
+                ["insert", ["link", "picture", "video"]],
+                ["view", ["fullscreen", "codeview", "help"]],
+            ],
+        });
+
+
     });
 });

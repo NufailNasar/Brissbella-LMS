@@ -1,23 +1,36 @@
 @extends('layouts.app')
 @section('content')
+<style>
+  p{
+    padding: 17px !important;
+  }
+</style>
+
 <h2 class="mb-4">Students</h2>
 <button class="btn btn-pink mb-3 float-right" data-toggle="modal" data-target="#addStudentModal">+ Add Student</button>
 <table class="table table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
       <th>Name</th>
-      <th>Category</th>
-      <th>Duration</th>
+      <th>course</th>
+      <th>batch</th>
+      <th>Contacct</th>
+      <th>email</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     @foreach ( $courceData as $data )
     <tr>
-      <th>{{ $data->name }}</th>
-      <th>{{ $data->category }}</th>
-      <th>{{ $data->durrarion }}</th>
-      <th></th>
+      <th>{{ $data->f_name }} {{ $data->l_name }}</th>
+      <th>{{ $data->c_name }}</th>
+      <th>{{ $data->b_name }}</th>
+      <th>{{ $data->mobile }}</th>
+      <th>{{ $data->email }}</th>
+      <td>
+        <!-- <a href="{{ route('students.view', $data->id) }}" class="btn btn-info btn-sm">View</a> -->
+        <a href="{{ route('students.update', $data->id) }}" class="btn btn-success btn-sm">Update</a>
+        <button type="button" class="btn btn-danger btn-sm delete-btn-s" data-id="{{ $data->id }}"> Delete</button>      </td>
     </tr>
     @endforeach
   </tbody>
@@ -31,22 +44,32 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-pink text-white">
-        <h5 class="modal-title">Add Course</h5>
+        <h5 class="modal-title">Add Student</h5>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form id="courseForm" enctype="multipart/form-data">
+      <form id="studentForm" enctype="multipart/form-data">
         <div class="modal-body">
-          <input type="text" class="form-control mb-2" name="name" placeholder="Course Name" required>
+          <input type="text" class="form-control mb-2" name="f_name" placeholder="First Name" required>
+          <input type="text" class="form-control mb-2" name="l_name" placeholder="Last Name">
+          <input type="text" class="form-control mb-2" name="identification" placeholder="NIC">
           <select class="form-control mb-2" id="courseCategory" name="category" required>
-            <option value="">-- Select the Category --</option>
-            <option value="Hair Styling">Hair Styling</option>
-            <option value="Makeup">Makeup Artisty</option>
-            <option value="Beauty">Beauty</option>
+            <option value="">-- Select the Course --</option>
+            @foreach ($courseList as $course)
+            <option value="{{ $course['id'] }}">{{ $course['name'] }}</option>
+            @endforeach
+          </select>
+          <select class="form-control mb-2" id="batch" name="batch" required>
+            <option value="">-- Select the Batch --</option>
+            @foreach ($batchList as $batch)
+            <option value="{{ $batch['id'] }}">{{ $batch['name'] }}</option>
+            @endforeach
           </select>
 
-          <input type="text" name="durration" class="form-control mb-2" placeholder="Duration" required>
-          <textarea class="form-control mb-2" rows="5" name="description" placeholder="Description"></textarea>
-          <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
+          <input type="text" name="mobile" class="form-control mb-2" placeholder="Contact Number" required>
+          <input type="email" name="email" class="form-control mb-2" placeholder="email" required>
+          <!-- <input type="text" name="username" class="form-control mb-2" placeholder="username" required> -->
+          <input type="password" name="password" class="form-control mb-2" placeholder="password" required>         
+           <input type="file" class="form-control" id="courseImage" name="image" accept="image/*" onchange="previewImage(event)">
           <img id="imagePreview" src="#" alt="Image Preview" class="mt-2" style="max-width: 200px; display: none;" />
 
         </div>

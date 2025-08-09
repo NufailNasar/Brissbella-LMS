@@ -49,3 +49,14 @@ footer.footer {
   justify-content: flex-end;
   margin-top: 15px;
 }
+.card-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.headerm{
+ background: #c6235b;
+}
+
+.text-muted {
+ color: white !important;
+}
