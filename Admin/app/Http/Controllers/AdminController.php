@@ -40,7 +40,7 @@ class AdminController extends Controller
     public function studentShow()
     {
         $courceData = Student::orderBy('id', 'desc')->paginate(10);
-        $courseList = Cources::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
+        $courseList = Cources::select('id', 'name')->where('is_active',1)->orderBy('id', 'desc')->get()->toArray();
         $batchList = Batch::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
 
         $courceData = Student::leftJoin('cources', 'students.cid', '=', 'cources.id')
@@ -53,7 +53,7 @@ class AdminController extends Controller
     public function lectureShow()
     {
 
-        $courseList = Cources::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
+        $courseList = Cources::select('id', 'name')->where('is_active',1)->orderBy('id', 'desc')->get()->toArray();
          $batchList = Batch::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
         $lectureData = Lecture::leftJoin('cources', 'lectures.cid', '=', 'cources.id')
             ->select('lectures.*', 'cources.name as course_name')
@@ -114,7 +114,7 @@ class AdminController extends Controller
              $userId = DB::table('users')->insertGetId([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'fullname' => $request->f_name . " " .  $request->f_name,
+                'fullname' => $request->f_name . " " .  $request->l_name,
                 'role' => 'instructor',
                 'created_at' => now(),
             ]);
@@ -151,7 +151,7 @@ class AdminController extends Controller
             $userId = DB::table('users')->insertGetId([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'fullname' => $request->f_name . " " .  $request->f_name,
+                'fullname' => $request->f_name . " " .  $request->l_name,
                 'role' => 'student',
                 'created_at' => now(),
             ]);
@@ -205,14 +205,14 @@ class AdminController extends Controller
     public function lectureUpdateshow($id){
 
         $lecture = Lecture::findOrFail($id);
-        $courseList = Cources::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
+        $courseList = Cources::select('id', 'name')->where('is_active',1)->orderBy('id', 'desc')->get()->toArray();
         return view('lectures.update', compact('lecture' , 'courseList'));
     }
 
     public function studentsUpdateshow($id){
 
         $student = Student::findOrFail($id);
-        $courseList = Cources::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
+        $courseList = Cources::select('id', 'name')->where('is_active',1)->orderBy('id', 'desc')->get()->toArray();
         $batchList = Batch::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
 
         return view('student.update', compact('student' , 'courseList', 'batchList'));
