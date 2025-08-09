@@ -9,6 +9,7 @@ include('db_connect.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $course_id = $_POST['course'];
+    $batch = $_POST['batch'];
 
     // File handling
     $upload_dir = 'uploads/';
@@ -35,11 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $new_filename = time() . '_' . $file_name;
         $destination = $upload_dir . $new_filename;
-
+        $b = 1;
         if (move_uploaded_file($file_tmp, $destination)) {
             // Save record to database
-            $stmt = $conn->prepare("INSERT INTO materials (title, course_id, filename) VALUES (?, ?, ?)");
-            $stmt->bind_param("sis", $title, $course_id, $new_filename);
+            $stmt = $conn->prepare("INSERT INTO materials (title, course_id, filename, bid) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sisi", $title, $course_id, $new_filename, $b);
+            $stmt->execute();
+
 
             if ($stmt->execute()) {
                 echo "<script>alert('Material uploaded successfully.');</script>";
@@ -70,20 +73,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Material Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Enter material title" required>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter material title"
+                    required>
             </div>
+            <?php
+            // Fetch course list from DB
+            $sql = "SELECT id, name FROM cources";
+            $result = $conn->query($sql);
 
+            $sql1 = "SELECT id, name FROM batches";
+            $batches = $conn->query($sql1);
+            ?>
             <div class="mb-3">
                 <label for="course" class="form-label">Select Course</label>
                 <select class="form-select" id="course" name="course" required>
                     <option value="">-- Select Course --</option>
-                    <option value="1">Hair & Beauty Techniques</option>
-                    <option value="2">Makeup Artistry</option>
-                    <option value="3">Nail Technology</option>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
+                        }
+                    } else {
+                        echo '<option value="">No courses found</option>';
+                    }
+                    ?>
                     <!-- Add more courses or fetch from DB dynamically -->
                 </select>
             </div>
-
+            <div class="mb-3">
+                <label for="batch" class="form-label">Select batch</label>
+                <select class="form-select" id="batch" name="batch" required>
+                    <option value="">-- Select batch --</option>
+                     <?php
+                    if ($batches->num_rows > 0) {
+                        while ($row = $batches->fetch_assoc()) {
+                            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
+                        }
+                    } else {
+                        echo '<option value="">No courses found</option>';
+                    }
+                    ?>
+                    <!-- Add more batchs or fetch from DB dynamically -->
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="material" class="form-label">Choose File</label>
                 <input class="form-control" type="file" id="material" name="material" required>
@@ -96,4 +128,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php include('footer.php'); ?>
 </body>
+
 </html>
