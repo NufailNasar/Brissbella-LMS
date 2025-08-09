@@ -47,7 +47,6 @@ $studentShortName = explode(' ', trim($studentName))[0];
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Welcome, <?= htmlspecialchars($studentShortName) ?>!</h2>
-
         <img src="<?= $studentPhoto ?>" alt="Profile" class="rounded-circle" style="width: 50px; height: 50px;">
     </div>
 
