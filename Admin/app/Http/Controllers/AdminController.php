@@ -54,13 +54,14 @@ class AdminController extends Controller
     {
 
         $courseList = Cources::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
+         $batchList = Batch::select('id', 'name')->orderBy('id', 'desc')->get()->toArray();
         $lectureData = Lecture::leftJoin('cources', 'lectures.cid', '=', 'cources.id')
             ->select('lectures.*', 'cources.name as course_name')
             ->orderBy('lectures.id', 'desc')
             ->paginate(4);
 
         // Lecture::orderBy('id', 'desc')->paginate(5);
-        return view('lectures')->with(compact('lectureData', 'courseList'));
+        return view('lectures')->with(compact('lectureData', 'courseList','batchList'));
     }
 
     public function courseSave(Request $request)
@@ -128,6 +129,7 @@ class AdminController extends Controller
             $lecture->Address = $request->addreess;
             $lecture->dob = $request->dob;
             $lecture->nic = $request->nic;
+            $lecture->bid = $request->batch;
             $lecture->uid = $userId;
             // $lecture->image = $imagePath ?? null;
             $lecture->save();
