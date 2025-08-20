@@ -3,7 +3,7 @@
 
 <?php
 session_start();
-include('header.php');
+include('Aheader.php');
 include('db_connect.php');
 
 // Dummy instructor data (replace with session + DB data)
